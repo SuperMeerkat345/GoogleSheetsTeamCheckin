@@ -28,7 +28,7 @@ function PingScouter(name, team, description) {
   const payload = {
     "channel": CHANNELID,
     "text": "New Task Assigned!", // Fallback text for notifications
-    "username": "TEAM CHECKIN BOT",
+    "username": "TEAM CHECK-IN BOT",
     "icon_url": "https://cdn-icons-png.flaticon.com/512/1632/1632670.png",
     "blocks": [
       {
