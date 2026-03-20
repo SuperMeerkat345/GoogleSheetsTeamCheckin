@@ -3,7 +3,7 @@
 function CallAddTaskForm() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const ui = SpreadsheetApp.getUi();
-
+  
   // get the form to put into the alert
   const html = HtmlService.createHtmlOutputFromFile('AddTaskForm')
       .setSandboxMode(HtmlService.SandboxMode.IFRAME);
@@ -54,21 +54,11 @@ function AddTask(task_scouter, task_team_num, task_description, task_status, tas
   const task = sheet.getRange(`D${currentRow}:H${currentRow}`)
   task.setValues([[task_id, scouter, task_team_num, task_description, task_status]])
   
-  const statuses = ["Pending", "In Progress", "Completed", "Blocked"];
-  const colors = ["#grey", "#0000ff", "#00ff00", "#ff0000"]; // Optional visual reference
-
-  // create the validation rule for statuses
-  const rule = SpreadsheetApp.newDataValidation()
-    .requireValueInList(statuses)
-    .setAllowInvalid(false)
-    .build();
-
-  // Apply to Column H (8) of the currentRow
   const statusCell = sheet.getRange(currentRow, 8);
-  statusCell.setDataValidation(rule);
   
   // Set the initial value so it's not empty
   statusCell.setValue(task_status);
+
 
   ss.toast("Task #" + task_id + " assigned to " + scouter);
 
