@@ -29,7 +29,7 @@ function PingScouter(name, team, description) {
     "channel": CHANNELID,
     "text": "New Task Assigned!", // Fallback text for notifications
     "username": "TEAM CHECKIN BOT",
-    "icon_url": "https://www.flaticon.com/free-icon/completed-task_1632670?term=check+in&page=1&position=46&origin=tag&related_id=1632670#",
+    "icon_url": "https://cdn-icons-png.flaticon.com/512/1632/1632670.png",
     "blocks": [
       {
         "type": "header",
@@ -112,5 +112,5 @@ function PingScouter(name, team, description) {
 }
 
 function test2() {
-  PingScouter("TestScouter", "test", "Test")
+  PingScouter("Artiom", "695", "Test")
 }
