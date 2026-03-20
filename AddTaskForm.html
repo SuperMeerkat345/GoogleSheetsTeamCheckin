@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <form onsubmit="handleSubmit(event)">
+      <label for="task_scouter">Choose a scouter/process to select scouter</label><br>
+      <select name="task_scouter" id="task_scouter">
+        <option value="smart_queue" selected>Smart Queue</option>
+        <option value="queue">Next in queue</option>
+      </select><br><br>
+
+      <!--
+      <label for="task_team_num">Team Number</label><br>
+      <input type="text" id="task_team_num" name="task_team_num" placeholder="Enter team num..."><br><br>
+      -->
+
+      <label for="task_team_num">Choose a team</label><br>
+      <select name="task_team_num" id="task_team_num">
+      </select><br><br>
+
+      <label for="task_description">Description</label>
+      <textarea id="task_description" name="task_description" rows="4" cols="50" placeholder="Enter desc..."></textarea><br><br>
+     
+
+      <label for="task_status">Choose a starting status of the task</label><br>
+      <select name="task_status" id="task_status">
+        <option value="Pending" selected>Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+        <option value="Blocked">Blocked</option>
+      </select><br><br>
+
+      <input type="checkbox" id="task_ping" name="task_ping" value="task_ping">
+      <label for="task_ping">Ping scouter on Slack?</label><br><br>
+
+      
+      <input type="submit" value="Submit" />
+      <input type="button" value="Close" onclick="google.script.host.close()" />
+
+      <br><br>
+    </form>
+
+    <script>
+      window.onload = function() {
+        google.script.run
+          .withSuccessHandler((teams) => {
+            const teamDropdown = document.getElementById("task_team_num");
+            teams.forEach(team => {
+              const newOption = document.createElement("option");
+              newOption.value = team;
+              newOption.text = team;
+              teamDropdown.appendChild(newOption);
+            });
+          })
+          .GetValidTeams();
+
+        google.script.run
+          .withSuccessHandler((scouters) => {
+            const scoutersDropdown = document.getElementById("task_scouter");
+            scouters.forEach(scouter => {
+              const newOption = document.createElement("option");
+              newOption.value = scouter;
+              newOption.text = scouter;
+              scoutersDropdown.appendChild(newOption);
+            });
+          })
+          .GetValidScouters();
+      };
+    </script>
+  </body>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault(); // stops page reload
+
+      google.script.run
+      .withSuccessHandler(() => {
+        google.script.host.close();
+      })
+      .AddTask(
+        document.getElementById('task_scouter').value,
+        document.getElementById('task_team_num').value,
+        document.getElementById('task_description').value,
+        document.getElementById('task_status').value,
+        'In Progress',
+        document.getElementById('task_ping').checked
+      );
+    }
+  </script>
+</html>
