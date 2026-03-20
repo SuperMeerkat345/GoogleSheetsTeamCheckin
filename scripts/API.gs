@@ -35,7 +35,7 @@ function PingScouter(name, team, description) {
         "type": "header",
         "text": {
           "type": "plain_text",
-          "text": "🚨 New Task Assigned",
+          "text": "🚨 New Task Assigned 🚨",
           "emoji": true
         }
       },
